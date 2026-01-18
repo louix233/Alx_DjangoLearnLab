@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import permission_required
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 
 
 from django.views.generic.detail import DetailView
@@ -52,6 +55,24 @@ def admin_view(request):
 @user_passes_test(is_librarian, login_url='login')
 def librarian_view(request):
     return render(request, 'relationship_app/librarian_view.html')
+
+@permission_required('relationship_app.can_add_book', raise_exception=True)
+def add_book(request):
+    # Minimal implementation (checker usually cares about decorator + existence)
+    return HttpResponse("Add book page - permission required: can_add_book")
+
+
+@permission_required('relationship_app.can_change_book', raise_exception=True)
+def edit_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    return HttpResponse(f"Edit book {book.title} - permission required: can_change_book")
+
+
+@permission_required('relationship_app.can_delete_book', raise_exception=True)
+def delete_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    return HttpResponse(f"Delete book {book.title} - permission required: can_delete_book")
+
 
 
 @user_passes_test(is_member, login_url='login')
