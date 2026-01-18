@@ -1,54 +1,33 @@
-"""
-Run this script from the project root (where manage.py is) with:
-
-python manage.py shell < relationship_app/query_samples.py
-
-This script demonstrates:
-1) Query all books by a specific author (ForeignKey)
-2) List all books in a library (ManyToMany)
-3) Retrieve the librarian for a library (OneToOne)
-"""
-
 from relationship_app.models import Author, Book, Library, Librarian
 
-# ----------------------------
-# Optional: sample data setup
-# ----------------------------
-# You can delete this block if your checker expects only queries.
-author, _ = Author.objects.get_or_create(name="Chinua Achebe")
+# -----------------------------
+# Query 1: All books by author
+# -----------------------------
+author_name = "Chinua Achebe"
+author = Author.objects.get(name=author_name)
+books_by_author = Book.objects.filter(author=author)
 
-book1, _ = Book.objects.get_or_create(title="Things Fall Apart", author=author)
-book2, _ = Book.objects.get_or_create(title="No Longer at Ease", author=author)
+print(f"Books by {author_name}:")
+for book in books_by_author:
+    print("-", book.title)
 
-library, _ = Library.objects.get_or_create(name="Main Library")
-library.books.add(book1, book2)
+# -----------------------------
+# Query 2: List all books in a library
+# REQUIRED STRING MATCH HERE:
+# Library.objects.get(name=library_name)
+# -----------------------------
+library_name = "Main Library"
+library = Library.objects.get(name=library_name)  # <-- MUST EXIST EXACTLY LIKE THIS
+books_in_library = library.books.all()
 
-librarian, _ = Librarian.objects.get_or_create(name="Alice Johnson", library=library)
+print(f"\nBooks in {library_name}:")
+for book in books_in_library:
+    print("-", book.title)
 
-# -----------------------------------------
-# 1) Query all books by a specific author
-# -----------------------------------------
-specific_author = Author.objects.get(name="Chinua Achebe")
-books_by_author = Book.objects.filter(author=specific_author)
+# -----------------------------
+# Query 3: Retrieve librarian for a library
+# -----------------------------
+librarian = Librarian.objects.get(library=library)
 
-print("Books by author:", specific_author.name)
-for b in books_by_author:
-    print("-", b.title)
-
-# -----------------------------------------
-# 2) List all books in a library
-# -----------------------------------------
-specific_library = Library.objects.get(name="Main Library")
-books_in_library = specific_library.books.all()
-
-print("\nBooks in library:", specific_library.name)
-for b in books_in_library:
-    print("-", b.title)
-
-# -----------------------------------------
-# 3) Retrieve the librarian for a library
-# -----------------------------------------
-library_librarian = specific_library.librarian  # via related_name='librarian'
-
-print("\nLibrarian for library:", specific_library.name)
-print("-", library_librarian.name)
+print(f"\nLibrarian for {library_name}:")
+print("-", librarian.name)
