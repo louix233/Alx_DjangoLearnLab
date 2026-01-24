@@ -123,4 +123,23 @@ AUTH_USER_MODEL = "bookshelf.CustomUser"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+DEBUG = False
+
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+X_FRAME_OPTIONS = "DENY"
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+INSTALLED_APPS += ["csp"]
+
+MIDDLEWARE.insert(0, "csp.middleware.CSPMiddleware")
+
+CSP_DEFAULT_SRC = ("'self'", )
+CSP_SCRIPT_SRC = ("'self'", )
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")
+
+
 
