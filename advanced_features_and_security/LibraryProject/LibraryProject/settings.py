@@ -142,5 +142,49 @@ CSP_DEFAULT_SRC = ("'self'", )
 CSP_SCRIPT_SRC = ("'self'", )
 CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")
 
+DEBUG = False
+
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+X_FRAME_OPTIONS = "DENY"
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# ===========================
+# HTTPS & SECURITY SETTINGS
+# ===========================
+
+# Enforce HTTPS redirection for all HTTP requests
+SECURE_SSL_REDIRECT = True     # Redirect all HTTP → HTTPS
+
+# HTTP Strict Transport Security (HSTS)
+# 31536000 seconds = 1 year
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True   # Apply to all subdomains
+SECURE_HSTS_PRELOAD = True              # Allow browser preloading of HSTS
+
+# Secure cookies
+SESSION_COOKIE_SECURE = True    # Session cookies only sent over HTTPS
+CSRF_COOKIE_SECURE = True       # CSRF cookie only sent over HTTPS
+
+# Protection against content-type sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enable browser XSS filter
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevent clickjacking attacks
+X_FRAME_OPTIONS = "DENY"
+
+# Allow only your HTTPS hostnames
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "your-domain.com"]
+
+# Set this to False for production
+DEBUG = False
+
+
+
 
 
