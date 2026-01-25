@@ -184,6 +184,10 @@ ALLOWED_HOSTS = ["127.0.0.1", "localhost", "your-domain.com"]
 # Set this to False for production
 DEBUG = False
 
+# Trust the X-Forwarded-Proto header from the proxy (Nginx/Apache)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
 
 
 
