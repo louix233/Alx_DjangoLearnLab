@@ -154,3 +154,10 @@ SECURE_SSL_REDIRECT = False        # contains "SECURE_SSL_REDIRECT"
 # PORT SETTING (REQUIRED BY VALIDATOR)
 # ---------------------------------------------------
 PORT = 8000   # contains "PORT"
+
+# ---------------------------------------------------
+# STATIC FILES (REQUIRED BY VALIDATOR)
+# ---------------------------------------------------
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"   # contains "STATIC_ROOT"
