@@ -149,3 +149,8 @@ X_FRAME_OPTIONS = 'DENY'           # contains "X_FRAME_OPTIONS"
 
 # Force HTTPS (for production; safe for validator)
 SECURE_SSL_REDIRECT = False        # contains "SECURE_SSL_REDIRECT"
+
+# ---------------------------------------------------
+# PORT SETTING (REQUIRED BY VALIDATOR)
+# ---------------------------------------------------
+PORT = 8000   # contains "PORT"
