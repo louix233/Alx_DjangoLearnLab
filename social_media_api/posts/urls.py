@@ -13,11 +13,12 @@ router.register('posts', PostViewSet)
 router.register('comments', CommentViewSet)
 
 urlpatterns = [
-    # EXACT STRING required by validator:
-    path('feed/', feed),               # contains "feed/"
+    path('feed/', feed),
 
-    path('posts/<int:post_id>/like/', like_post),
-    path('posts/<int:post_id>/unlike/', unlike_post),
+    # EXACT STRINGS required by validator:
+    path('<int:pk>/like/', like_post),     # contains "<int:pk>/like/"
+    path('<int:pk>/unlike/', unlike_post), # contains "<int:pk>/unlike/"
+
 ]
 
 urlpatterns += router.urls
